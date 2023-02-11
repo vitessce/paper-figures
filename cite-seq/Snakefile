@@ -1,0 +1,28 @@
+include: "../common.smk"
+
+# References:
+# - https://satijalab.org/seurat/articles/multimodal_vignette.html
+# - https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866
+ADT_URL = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz"
+RNA_URL = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz"
+
+
+rule download_rna_csv:
+    output:
+        (RAW_DIR / "GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz")
+    params:
+        file_url=RNA_URL
+    shell:
+        '''
+        curl -L --retry 999 --retry-delay 3 -C - -o {output} {params.file_url}
+        '''
+
+rule download_adt_csv:
+    output:
+        (RAW_DIR / "GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz")
+    params:
+        file_url=ADT_URL
+    shell:
+        '''
+        curl -L --retry 999 --retry-delay 3 -C - -o {output} {params.file_url}
+        '''
