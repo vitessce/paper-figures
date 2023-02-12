@@ -1,0 +1,66 @@
+include: "../common.smk"
+
+# Use Globus Connect Personal to add the path to the directory containing
+# this git repostory as an "Accessible Directory" and then check the box
+# to make it Writable.
+# Set the environment GLOBUS_LOCAL_ENDPOINT to the UUID of the collection
+# that corresponds to your local machine (i.e., the collection that
+# corresponds to your Globus Connect Personal installation).
+# See https://app.globus.org/collections?scope=administered-by-me.
+
+# References:
+# - https://portal.hubmapconsortium.org/browse/dataset/69d9c52bc9edb625b496cecb623ec081
+# - https://docs.globus.org/how-to/globus-connect-personal-mac/
+# - https://docs.globus.org/cli/quickstart/
+
+HUBMAP_GLOBUS_ENDPOINT = "af603d86-eab9-4eec-bb1d-9d26556741bb"
+
+DATASET_GLOBUS_DIR = "69d9c52bc9edb625b496cecb623ec081"
+
+rule all:
+    input:
+        directory(RAW_DIR / "reg001_expr-anndata.zarr"),
+        directory(RAW_DIR / "ome_tiff" / "expr"),
+        directory(RAW_DIR / "ome_tiff" / "mask"),
+        directory(RAW_DIR / "ome_tiff_offsets" / "expr"),
+        directory(RAW_DIR / "ome_tiff_offsets" / "mask")
+
+# Run "globus login" in the terminal to
+# authenticate prior to running this rule.
+rule download_anndata_zarr:
+    output:
+        directory(RAW_DIR / "reg001_expr-anndata.zarr")
+    shell:
+        """
+        TASK_ID="$(globus transfer --recursive \
+            --jmespath 'task_id' --format=UNIX \
+            {HUBMAP_GLOBUS_ENDPOINT}:/{DATASET_GLOBUS_DIR}/anndata-zarr/ \
+            $GLOBUS_LOCAL_ENDPOINT:$(pwd)/{RAW_DIR})" && \
+        globus task wait "$TASK_ID" --timeout 600
+        """
+
+rule download_ome_tiffs:
+    output:
+        directory(RAW_DIR / "ome_tiff" / "expr"),
+        directory(RAW_DIR / "ome_tiff" / "mask")
+    shell:
+        """
+        TASK_ID="$(globus transfer --recursive \
+            --jmespath 'task_id' --format=UNIX \
+            {HUBMAP_GLOBUS_ENDPOINT}:/{DATASET_GLOBUS_DIR}/ometiff-pyramids/pipeline_output/ \
+            $GLOBUS_LOCAL_ENDPOINT:$(pwd)/{RAW_DIR}/ome_tiff)" && \
+        globus task wait "$TASK_ID" --timeout 600
+        """
+
+rule download_ome_tiff_offsets:
+    output:
+        directory(RAW_DIR / "ome_tiff_offsets" / "expr"),
+        directory(RAW_DIR / "ome_tiff_offsets" / "mask")
+    shell:
+        """
+        TASK_ID="$(globus transfer --recursive \
+            --jmespath 'task_id' --format=UNIX \
+            {HUBMAP_GLOBUS_ENDPOINT}:/{DATASET_GLOBUS_DIR}/output_offsets/pipeline_output/ \
+            $GLOBUS_LOCAL_ENDPOINT:$(pwd)/{RAW_DIR}/ome_tiff_offsets)" && \
+        globus task wait "$TASK_ID" --timeout 600
+        """
