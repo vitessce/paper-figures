@@ -49,7 +49,7 @@ rule download_ome_tiffs:
             --jmespath 'task_id' --format=UNIX \
             {HUBMAP_GLOBUS_ENDPOINT}:/{DATASET_GLOBUS_DIR}/ometiff-pyramids/pipeline_output/ \
             $GLOBUS_LOCAL_ENDPOINT:$(pwd)/{RAW_DIR}/ome_tiff)" && \
-        globus task wait "$TASK_ID" --timeout 600
+        globus task wait "$TASK_ID" --timeout 6000
         """
 
 rule download_ome_tiff_offsets:
