@@ -1,4 +1,4 @@
-# vitessce-paper-figures
+# vitessce-figures
 
 ```sh
 conda env create -f environment.yml
