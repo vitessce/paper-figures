@@ -1,0 +1,20 @@
+include: "../common.smk"
+configfile: "config.yml"
+
+# Google cloud storage bucket and folder.
+IMS_BASE_URL = "https://vitessce-demo-data.storage.googleapis.com/test-data"
+
+rule all:
+    input:
+        [ (PROCESSED_DIR / f) for f in config['output'] ]
+
+# Download raw data.
+rule download_image:
+    output:
+        (PROCESSED_DIR / "VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.{algorithm}.ome.tiff")
+    params:
+        file_url=(lambda w: f"{IMS_BASE_URL}/VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.{w.algorithm}.ome.tiff")
+    shell:
+        '''
+        curl -L --retry 999 --retry-delay 3 -C - -o {output} {params.file_url}
+        '''

@@ -3,16 +3,16 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - python==3.9
+  - python==3.10
   - numpy
   - pandas
+  - scipy
   - jupyterlab
-  - numba>=0.53.0
-  - scanpy>=1.6.0
-  - anndata==0.8.0
+  - numba
+  - scanpy
+  - anndata
   - snakemake
   - zarr
-  - scipy
   - tifffile
   - scikit-image
   - h5py
@@ -20,17 +20,18 @@ dependencies:
   - mudata
   - muon
   - celltypist
+  - leidenalg
+  - geopandas
   - pip
   - pip:
     - loompy
     - generate-tiff-offsets
-    - leidenalg
-    - ome-zarr==0.2.1
-    - vitessce[all]==3.0.4
+    - ome-zarr
+    - vitessce[all]
     - negspy
-    - pybbi>=0.2.3
-    - mira-multiome>=1.0.1
-    - episcanpy
+    - pybbi>=0.3.5
+    #- mira-multiome>=1.0.1
+    #- episcanpy
     - mudatasets[muon]
     - mofapy2
     - globus-cli
