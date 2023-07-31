@@ -6,6 +6,10 @@ include: "../common.smk"
 ADT_URL = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz"
 RNA_URL = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz"
 
+rule all:
+    input:
+        (RAW_DIR / "GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz"),
+        (RAW_DIR / "GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz")
 
 rule download_rna_csv:
     output:
