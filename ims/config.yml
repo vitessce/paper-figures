@@ -1,0 +1,5 @@
+output:
+- VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.AREA.ome.tiff
+- VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.GAUSSIAN.ome.tiff
+- VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.LINEAR.ome.tiff
+- VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.SIMPLE.ome.tiff

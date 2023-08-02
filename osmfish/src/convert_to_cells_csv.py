@@ -28,7 +28,7 @@ def convert_to_csv(args):
     matrix_df = pd.DataFrame(
         index=adata.obs.index.values.tolist(),
         columns=adata.var.index.values.tolist(),
-        data=adata.X
+        data=adata.X.todense()
     )
     matrix_df.index = matrix_df.index.rename("cell_id")
 

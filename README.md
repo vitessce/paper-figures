@@ -35,12 +35,9 @@ jupyter lab
 # Run all cells of visium/src/visium.ipynb
 
 # Vignette 03
-cd ims/data
-curl -L -o VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.AREA.ome.tiff "https://vitessce-demo-data.storage.googleapis.com/test-data/VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.AREA.ome.tiff"
-curl -L -o VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.GAUSSIAN.ome.tiff "https://vitessce-demo-data.storage.googleapis.com/test-data/VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.GAUSSIAN.ome.tiff"
-curl -L -o VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.LINEAR.ome.tiff "https://vitessce-demo-data.storage.googleapis.com/test-data/VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.LINEAR.ome.tiff"
-curl -L -o VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.SIMPLE.ome.tiff "https://vitessce-demo-data.storage.googleapis.com/test-data/VAN0006-LK-2-85-IMS_PosMode_multilayer.pyramid.SIMPLE.ome.tiff"
-cd ../..
+cd ims
+snakemake -j 1
+cd ..
 jupyter lab
 # Run all cells of ims/src/ims.ipynb
 
