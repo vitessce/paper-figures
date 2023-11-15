@@ -62,3 +62,9 @@ jupyter lab
 
 ```
 
+Upload
+
+```sh
+cd hubmap-publication-page/data
+gsutil cp -r . gs://vitessce-demo-data/paper-figures-august-2023
+```

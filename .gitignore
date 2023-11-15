@@ -2,5 +2,9 @@
 .ipynb_checkpoints/
 __pycache__/
 data/
-!hubmap-publication-page/data/
+hubmap-publication-page/data/**/*
+!hubmap-publication-page/data/.gitkeep
+hubmap-publication-page/vignettes/
 .snakemake/
+debug.log
+*.hdf5
